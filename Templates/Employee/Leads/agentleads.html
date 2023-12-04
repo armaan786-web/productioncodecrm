@@ -1,0 +1,216 @@
+{% extends 'Employee/Base/base.html' %}
+{% load static %}
+{% block main-content %}
+<style>
+    .table-scrollable {
+        overflow-x: auto;
+        max-width: 100%;
+    }
+</style>
+
+<div class="container-fluid">
+
+	<!-- Title -->
+	<div class="row heading-bg">
+		<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+			{% comment %} <h5 class="txt-dark">ContactUs/Appointment</h5> {% endcomment %}
+		</div>
+		<!-- Breadcrumb -->
+		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+			<ol class="breadcrumb">
+				<li><a href="{% url "employee_dashboard" %}">Dashboard</a></li>
+				{% comment %} <li><a href="#"><span>table</span></a></li> {% endcomment %}
+				<li class="active"><span>Enquiry</span></li>
+			</ol>
+		</div>
+		<!-- /Breadcrumb -->
+		
+	</div>
+	{% include 'dashboard/messages.html' %}
+
+   <div class="ml-auto" style="float:left;margin-bottom:20px;">
+   <a href="{% url "employee_leads" %}"><button class="btn bg-light" style="color:black;">Visa Enquiry</button></a>
+     <a href="{% url "Employee_FrontWebsiteEnquiry_list" %}" ><button class="btn bg-light" style="color:black;">FrontWebsite Enquiry</button></a>
+     <button class="btn btn-primary" disabled>Agent Leads</button>
+     
+   </div>
+
+  
+
+
+	<!-- Row -->
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default card-view">
+				<div class="panel-wrapper collapse in">
+               <h5 class="txt-dark">ContactUs/Appointment</h5>
+					<div class="panel-body">
+						<div class="table-wrap">
+							<div class="table-responsive">
+								<table id="example" class="table table-hover display  pb-30">
+									<thead>
+										<tr>
+											<th>Action</th>
+                            <th>Enquiry No</th>
+                            <th>Name</th>
+                            <th>Registered On</th>
+                            <th>Updated On</th>
+                            <th>Visa Country</th>
+                            <th>Visa Category</th>
+                            <th>Sub Category</th>
+                            <th>Visa Type</th>
+                            <th>Package Name</th>
+                            <th>Notes</th>
+                            <th>Created By</th>
+                            <th>Enquiry Status</th> 
+                            <th>Lead Status</th>
+										</tr>
+									</thead>
+									<tfoot>
+										<tr>
+									 <th>Action</th>
+                            <th>Enquiry No</th>
+                            <th>Name</th>
+                            <th>Registered On</th>
+                            <th>Updated On</th>
+                            <th>Visa Country</th>
+                            <th>Visa Category</th>
+                            <th>Sub Category</th>
+                            <th>Visa Type</th>
+                            <th>Package Name</th>
+                            <th>Notes</th>
+                            {% comment %} <th>Assign to Emp</th> {% endcomment %}
+                            <th>Created By</th>
+                            <th>Enquiry Status</th>
+                            <th>Lead Status</th>
+										</tr>
+									</tfoot>
+									<tbody>
+										{% for i in enquiries  %}
+                        <tr>
+                           {% comment %} <td>{{forloop.counter}}</td> {% endcomment %}
+                           <td><a href="{% url "viewemp_enqlist" i.id %}"><i class='zmdi zmdi-eye'
+                              style="font-size: 20px; color:blue;"></i></a></td>
+                            <td>{{i.enquiry_number}}</td>
+                           
+                           <td>{{i.FirstName}} {{i.LastName}}</td>
+                           <td>{{i.registered_on}}</td>
+                           <td>{{i.last_updated_on}}</td>
+                           <td>{{i.Visa_country}}</td>
+                           <td>{{i.Visa_category}}</td>
+                           <td>{{i.Visa_subcategory}}</td>
+                           <td>{{i.Visa_type}}</td>
+                           <td>{{i.Package}}</td>
+                           <td> 
+                            <button type="button" class="btn btn-light d-flex align-items-center" data-toggle="modal" data-target="#updatenotes{{i.id}}" style="border:none; background-color:transparent;">
+                           
+                                <div>
+                                    <i class='bx bx-edit text-warning' style="font-size: 20px;"></i>
+                                </div>
+                                <div class="ml-2 text-warning" >
+                                    Add Note
+                                    
+                                </div>
+                            </button>
+                            
+                            
+                            <button type="button" class="btn btn-light" data-toggle="modal" data-target="#viewallnotes{{i.id}}" style="border:none; background-color:transparent; white-space: nowrap; width: 150px;">
+                                <i class='bx bx-low-vision text-warning' style="font-size: 20px;"></i>
+                                <span class="ml-2 text-warning">View All Notes</span>
+                            </button> 
+
+                            {% include "Employee/Leads/view_notes_modal.html" %}
+                            {% include "Employee/Leads/add_notes.html" %}
+                            
+                           </td>
+                           
+                           
+                           <td>{{i.created_by}}</td>
+                           <td>
+                             
+                              {% if i.lead_status == "Enrolled" %}
+                              <span style="font-size: 15px; width:100%;" class="badge badge-pill badge-secondary">Enrolled</span>
+                              {% elif i.lead_status == "Inprocess" %}
+                              <span style="font-size: 15px; width:100%;" class="badge badge-pill badge-info">Inprocess</span>
+                              {% elif i.lead_status == "Ready To Submit" %}
+                              <span style="font-size: 15px; width:100%;" class="badge badge-pill badge-dark">Ready To Submit</span>
+                              {% elif i.lead_status == "Appointment" %}
+                              <span style="font-size: 15px; width:100%;" class="badge badge-pill badge-light">Appointment</span>
+                              {% elif i.lead_status == "Ready To Collection" %}
+                              <span style="font-size: 15px; width:100%;" class="badge badge-pill badge-info ">Ready To Collection</span>
+                              {% elif i.lead_status == "Result" %}
+                              <span style="font-size: 15px; width:100%;" class="badge badge-pill badge-info ">Result</span>
+                              {% elif i.lead_status == "Delivery" %}
+                              <span style="font-size: 15px; width:100%;" class="badge badge-pill badge-success ">Delivery</span>
+                              {% comment %} <span style="font-size: 15px; width:100%;" class="badge badge-pill badge-primary">PreEnrolled</span> {% endcomment %}
+                              {% elif i.lead_status == "Archive" %}
+                              <span style="font-size: 15px; width:100%;" class="badge badge-pill badge-danger">Case Initiated</span>
+                              {% elif i.lead_status == "Case Initiated" %}
+                              <span style="font-size: 15px; width:100%;" class="badge badge-pill badge-danger">Case Initiated</span>
+
+                              
+                              
+                              {% endif %}
+     
+                           
+                        </td>
+                        {% if i.lead_status == "Inprocess" %}
+                        <td>
+                           <button type="button" class="btn btn-light d-flex align-items-center" data-toggle="modal" data-target="#lead_status_modals{{i.id}}" style="border:none; background-color:transparent;">
+                           
+                              <div>
+                                  <i class='bx bx-edit text-warning' style="font-size: 20px;"></i>
+                              </div>
+                              <div class="ml-2 text-warning" >
+                                  Update
+                                  
+                              </div>
+                          </button>
+                          {% include "Employee/Leads/lead_status_modal copy.html" %}
+                        </td>
+                        {% endif %}
+                           
+                        </tr>
+                        
+                        {% endfor %}
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /Row -->
+</div>
+
+
+
+<script>
+   // Get the current date and time
+   var currentDateTime = new Date();
+   
+   // Define months in an array for formatting
+   var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+   
+   // Format the date as "dd/Mon/yyyy"
+   var day = String(currentDateTime.getDate()).padStart(2, '0');
+   var month = months[currentDateTime.getMonth()];
+   var year = currentDateTime.getFullYear();
+   
+   // Format the time as "hh:mm AM/PM"
+   var hours = String(currentDateTime.getHours() % 12 || 12).padStart(2, '0'); // Convert to 12-hour format
+   var minutes = String(currentDateTime.getMinutes()).padStart(2, '0');
+   var ampm = currentDateTime.getHours() >= 12 ? 'PM' : 'AM';
+   
+   var formattedDateTime = day + '/' + month + '/' + year + ' ' + hours + ':' + minutes + ' ' + ampm;
+   
+   // Insert the formatted date and time into the unique <div> element
+   var currentDateTimeElement = document.getElementById('currentDateTime{{i.id}}');
+   if (currentDateTimeElement) {
+       currentDateTimeElement.textContent = formattedDateTime;
+   }
+</script>
+
+{% endblock main-content %}

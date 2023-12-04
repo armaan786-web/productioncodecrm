@@ -1,0 +1,103 @@
+{% extends 'Agent/Base/base.html' %}
+{% load static %}
+{% block main-content %}
+
+<div class="container-fluid pt-25">
+					
+    <!-- Row -->
+    <div class="row">
+        <div class="col-lg-3 col-xs-12">
+            <div class="panel panel-default card-view  pa-0">
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body  pa-0">
+                        <div class="profile-box">
+                            <div class="profile-cover-pic">
+                                <!-- <div class="fileupload btn btn-default">
+                                    <span class="btn-text">edit</span>
+                                    <input class="upload" type="file">
+                                </div> -->
+                                <div class="profile-image-overlay"></div>
+                            </div>
+                            <div class="profile-info text-center">
+                                <div class="profile-img-wrap">
+                                    {% if user.agent.type == "Agent" %}
+                                        {% if agent.profile_pic %}
+                                        <img class="inline-block mb-10" src="{{agent.profile_pic.url}}" alt="user"/>
+                                        {% else %}
+                                        <img class="inline-block mb-10" src="{% static 'assets/images/noimage.png' %}" alt="user"/>
+                                        {% endif %}
+                                    {% elif user.agent.type == "Outsourcing Partner" %}
+                                        {% if outsource.profile_pic %}
+                                        <img class="inline-block mb-10" src="{{outsource.profile_pic.url}}" alt="user"/>
+                                        {% else %}
+                                        <img class="inline-block mb-10" src="{% static 'assets/images/noimage.png' %}" alt="user"/>
+                                        {% endif %}
+                                    {% endif %}
+                                    
+                                </div>	
+                                <h5 class="block mt-10 mb-5 weight-500 capitalize-font txt-primary">{{agent.users}}</h5>
+                                <h6 class="block capitalize-font pb-20">{% if agent.users.user_type == '4' %}Agent {% else %}OutSource Agent{% endif %}</h6>
+                            </div>	
+                            <div class="social-info">
+                                <div class="row">
+                                    <div class="col-xs-4 text-center">
+                                        <span class="counts block head-font"><span class="counter-anim">{{leads.count}}</span></span>
+                                        <span class="counts-text block">Leads</span>
+                                    </div>
+                                    
+                                </div>
+                                <button class="btn btn-primary btn-block  btn-anim mt-30" data-toggle="modal" data-target="#agentprofile"><i class="fa fa-pencil"></i><span class="btn-text">Edit Profile</span></button>
+                                {% include "Agent/update_profile.html" %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9 col-xs-12">
+            <div class="panel panel-default card-view pa-0">
+                <div class="panel-wrapper collapse in">
+                    <div  class="panel-body pb-0">
+                        <div  class="tab-struct custom-tab-1 ml-10">
+                            <div class="row">
+                                <div class="col-md-4">Name</div>
+                                <div class="col-md-4">{{agent.users}} </div>
+                                <div class="col-md-4"></div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-4">Email</div>
+                                <div class="col-md-4">{{agent.users.email}}</div>
+                                <div class="col-md-4"></div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-4">User Type</div>
+                                <div class="col-md-4">{% if agent.users.user_type == '4' %}Agent {% else %}OutSource Agent{% endif %}</div>
+                                <div class="col-md-4"></div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-4">Contact No</div>
+                                <div class="col-md-4">{{agent.contact_no}}</div>
+                                <div class="col-md-4"></div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-4">Assign To Employee</div>
+                                <div class="col-md-4">{{agent.assign_employee.users}}</div>
+                                <div class="col-md-4"></div>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+                
+        </div>
+    </div>
+
+</div>
+
+{% endblock main-content %}

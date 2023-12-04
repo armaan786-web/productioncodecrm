@@ -1,0 +1,76 @@
+{% extends 'Employee/Base/base.html' %}
+{% load static %}
+{% block main-content %}
+
+<div class="container-fluid">
+
+	<!-- Title -->
+	<div class="row heading-bg">
+		<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+			<h5 class="txt-dark">Package</h5>
+		</div>
+		<!-- Breadcrumb -->
+		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+			<ol class="breadcrumb">
+				<li><a href="{% url "employee_dashboard" %}">Dashboard</a></li>
+				{% comment %} <li><a href="#"><span>table</span></a></li> {% endcomment %}
+				<li class="active"><span>Package</span></li>
+			</ol>
+		</div>
+		<!-- /Breadcrumb -->
+		
+	</div>
+	{% include 'Employee/Base/messages.html' %}
+
+    <div class="row">
+
+	<div class="ml-auto" style="float:right;margin-bottom:20px;">
+		<a href="{% url 'Employee_add_Package' %}"><button class="btn btn-primary">Add New</button></a>
+	</div>
+ </div>
+	<!-- /Title -->
+
+	<div class="row">
+		{% for i in Package %}
+		<div class="col-md-3">
+		 <div class="panel panel-default card-view pa-0">
+			 <div class="panel-wrapper collapse in">
+				 <div class="panel-body pa-0">
+					 <article class="col-item">
+						 <div class="photo">
+							 <div class="options">
+								 <a href="{% url 'Employee_editPackage' i.id %}" class="font-18 txt-grey mr-10 pull-left"><i class="zmdi zmdi-edit"></i></a>
+								 
+							 </div>
+							 {% if i.image %}
+							 <img src="{{ i.image.url }}" class="img-responsive" alt="Product Image" />
+							 {% else %}
+							 <img src="{% static 'assets/images/noimage.png' %}" class="img-responsive" alt="Product Image" />
+							 {% endif %}
+						 </div>
+						 <div class="info">
+							 <h6>{{i.title}}</h6>
+							 
+							 <span class="head-font block font-16">Country : {{i.visa_country}}</span>
+							 <span class="head-font block font-16">Category : {{i.visa_category}}</span>
+							 <span class="head-font block font-16">Subcategory : {{i.visa_subcategory}}</span>
+							 <span class="head-font block font-16">Group Assign : {{i.assign_to_group}}</span>
+							 <span class="head-font block font-16">No Of Visa : {{i.number_of_visa}}</span>
+							 <span class="head-font block font-16">Product Code : {{i.amount}}</span>
+							 <span class="head-font block font-16">Advance Product Code : {{i.advance_amount}}</span>
+							 <span class="head-font block font-16">File Charges : {{i.file_charges}}</span>
+							 <span class="head-font block font-16">Last Updated By : {{i.last_updated_by}}</span>
+							 <span class="head-font block font-16">Last Updated On : {{i.last_updated_on}}</span>
+							 <span class="head-font block font-16">Expiry Date : {{i.package_expiry_date}}</span>
+						 </div>
+					 </article>
+				 </div>
+			 </div>	
+		 </div>	
+	 	</div>		
+		 {% endfor %}
+	</div>
+	<!-- /Row -->
+</div>
+
+{% endblock main-content %}

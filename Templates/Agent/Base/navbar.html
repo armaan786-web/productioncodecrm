@@ -1,0 +1,69 @@
+{% load static %}
+
+<div class="fixed-sidebar-left">
+    <ul class="nav navbar-nav side-nav nicescroll-bar">
+        {% comment %} <li class="navigation-header">
+            <span>Main</span> 
+            <i class="zmdi zmdi-more"></i>
+        </li> {% endcomment %}
+        <li>
+            <a href="{% url "agent_dashboard" %}"><div class="pull-left"><i class="zmdi zmdi-book mr-20"></i><span class="right-nav-text">Dashboard</span></div><div class="clearfix"></div></a>
+        <li>
+            <a href="javascript:void(0);" data-toggle="collapse" data-target="#email_dr"><div class="pull-left"><i class="zmdi zmdi-accounts-add mr-20"></i><span class="right-nav-text">Leads <span style="margin-left:35px;"></span></span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
+            <ul id="email_dr" class="collapse collapse-level-1">
+                <li>
+                    <a href="{% url 'Agent_add_leads' %}">Add Leads</a>
+                </li>
+                
+              {% comment %}  <li>
+                    <a href="{% url 'agent_leads' %}">All Leads</a>
+                </li>
+                
+                <li>
+                    <a href="{% url 'Agent_enroll_application' %}">Enrolled Application</a>
+                </li> {% endcomment %}
+                 <li>
+                    <a href="{% url 'agent_leads' %}">View All Leads</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:void(0);" data-toggle="collapse" data-target="#form_dr"><div class="pull-left"><i class="zmdi zmdi-mall mr-20"></i><span class="right-nav-text">Products </span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
+            <ul id="form_dr" class="collapse collapse-level-1">
+                
+                <li> <a href="{% url 'Agent_Package_list' %}" ></i>View Products</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:void(0);" data-toggle="collapse" data-target="#chat_dr"><div class="pull-left"><i class="zmdi zmdi-comments mr-20"></i><span class="right-nav-text">Chat </span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
+            <ul id="chat_dr" class="collapse collapse-level-1">
+                <li> <a href="{% url 'chat' %}" ></i>Chat</a>
+                </li>
+                
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:void(0);" data-toggle="collapse" data-target="#dashboard_dr"><div class="pull-left"><i class="zmdi zmdi-card-alert mr-20"></i><span class="right-nav-text">Question/Concern </span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
+            <ul id="dashboard_dr" class="collapse collapse-level-1">
+                <li> <a href="{% url "Agent_faqlist" %}" ></i>View Question/Concern</a>
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="javascript:void(0);" data-toggle="collapse" data-target="#board_dr"><div class="pull-left"><i class="zmdi zmdi-card-alert mr-20"></i><span class="right-nav-text">Appointments </span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
+            <ul id="board_dr" class="collapse collapse-level-1">
+                <li> <a href="{% url "Agent_appointment_list" %}" ></i>View Appointments</a>
+                </li>
+            </ul>
+        </li>
+        
+        
+        
+    </ul>
+</div>
+
+
+
+

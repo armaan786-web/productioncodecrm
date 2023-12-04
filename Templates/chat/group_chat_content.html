@@ -1,0 +1,394 @@
+{% load static %}
+
+<style>
+   .input-group {
+   display: flex;
+   width: 100%;
+   background-color: #fff;
+   border: 1px solid #ccc;
+   }
+   .input-container {
+   flex: 99%;
+   border: none;
+   }
+   .button-container {
+   flex: 1%;
+   display: flex;
+   align-items: center;
+   justify-content: flex-end;
+   }
+   .input-msg-send {
+   width: 100%;
+   box-sizing: border-box;
+   border: none;
+   }
+   #attach-button {
+   background: #128C7E;
+   color: white;
+   border: none;
+   cursor: pointer;
+   padding: 12px;
+   border-radius: 5px;
+   }
+   #send-button {
+   background: #128C7E;
+   color: white;
+   border: none;
+   cursor: pointer;
+   padding: 12px;
+   margin-left: 5px;
+   border-radius: 5px;
+   }
+   .chat-content {
+   position: relative;
+   height: 496px;
+   width: 100%;
+   overflow-y: auto;
+   }
+   .panel-body{
+   position: relative;
+   }
+   .panel-body::before {
+   content: '';
+   position: absolute;
+   height: 100%;
+   width: 100%;
+   background-image: url('{% static "dist/img/back.jpg" %}');
+   background-size: cover;
+   background-repeat: no-repeat;
+   z-index: -1; 
+   top: 0;
+   bottom: 0;
+   opacity: 0.1;
+   }
+</style>
+<!-- Your HTML Code Here -->
+<div class="recent-chat-box-wrap">
+   <div class="recent-chat-wrap">
+      <div class="panel-heading ma-0" style="background-color: #128c7e;height:49px;padding-top:15px; color: white;">
+         <div class="goto-back" >
+            {% comment %} <span class="inline-block txt-light">{{ chat_group.group_name }} Group</span> {% endcomment %}
+            <h6 style="font-size: 25px; color:white;">{{ chat_group.group_name }}</h6>
+            <div class="clearfix"></div>
+         </div>
+      </div>
+      <div class="panel-wrapper collapse in">
+         <div class="panel-body pa-0">
+            <div class="chat-content">
+               <ul class="chatapp-chat-nicescroll-bar pt-20" id="chat-log">
+                  {% for message in chat %}
+                  {% if message.message_by == user %}
+                  <li class="user">
+                     <!-- Message sent by the logged-in user -->
+                     <div class="user-msg-wrap">
+                        
+                        <div class="msg pull-right">
+                           <span class="text-primary" id="msgby">{{message.message_by}}</span>
+                           {% comment %} 
+                           <p>{{ message.message_content }}</p>
+                           {% endcomment %}
+                           <div width="100%">{{ message.message_content }}</div>
+                           {% if message.attachment %}
+                           {% if message.attachment|lower|slice:":28" == "data:application/pdf;base64," %}
+                           <div>
+                              {% comment %} <embed src="{% static "dist/img/pdfnw.png" %}" type="application/pdf" width="185" height="100"/> {% endcomment %}
+                              <br>
+                              <a href="{{ message.attachment }}" download>
+                              <i class="zmdi zmdi-download"> {{message.filename}} </i>
+                              </a>
+                           </div>
+                           {% else %}
+                           <!-- Display other types of attachments (e.g., images) -->
+                           <div>
+                              <img src="{{ message.attachment }}" alt="" width="190px;">
+                              <br>
+                              <a href="{{ message.attachment }}" download>
+                              <i class="zmdi zmdi-download"> {{message.filename}}</i>
+                              </a>
+                           </div>
+                           {% endif %}
+                           {% endif %}
+                           {% comment %} <img src="{{message.attachment}}" alt="" width="190px;"> {% endcomment %}
+                           <div class="msg-per-detail text-right">
+                              <span class="msg-time txt-grey" id="time">{{ message.msg_time }}</span>
+                           </div>
+                        </div>
+                        <div class="clearfix"></div>
+                     </div>
+                  </li>
+                  {% else %}
+                  <li class="friend">
+                     <!-- Message sent by other users -->
+                     <div class="friend-msg-wrap">
+                     
+                        <img class="user-img img-circle block pull-left" src="{% static 'dist/img/user_chat.png' %}" alt="user" />
+                        <div class="msg pull-left">
+                           <span class="text-primary" id="msgby">{{ message.message_by }}</span>
+                           <p>{{ message.message_content }}</p>
+                           {% if message.attachment %}
+                           {% if message.attachment|lower|slice:":28" == "data:application/pdf;base64," %}
+                           <div>
+                             
+                              <img src="{% static "dist/img/pdfnw.png" %}" alt="" width="190px;">
+                              <br>
+                              <a href="{{ message.attachment }}" download>
+                              <i class="zmdi zmdi-download"> {{message.filename}} </i>
+                              </a>
+                           </div>
+                           {% else %}
+                           <!-- Display other types of attachments (e.g., images) -->
+                           <div>
+                              <img src="{{ message.attachment }}" alt="" width="190px;">
+                              <br>
+                              <a href="{{ message.attachment }}" download>
+                              <i class="zmdi zmdi-download"> {{message.filename}}</i>
+                              </a>
+                           </div>
+                           {% endif %}
+                           {% endif %}
+                           <div class="msg-per-detail text-right">
+                              <span class="msg-time txt-grey" id="time">{{ message.msg_time }}</span>
+                           </div>
+                        </div>
+                        <div class="clearfix"></div>
+                     </div>
+                  </li>
+                  {% endif %}
+                  {% endfor %}
+               </ul>
+            </div>
+            <!-- Add your input field and send button here for sending messages -->
+         </div>
+         <input type="hidden" id="group-name" value="{{ chat_group.id }}">
+      </div>
+   </div>
+   <div class="input-group">
+      <div class="input-container">
+         <input type="text" id="message-input" placeholder="Type your message" class="input-msg-send form-control">
+         <input type="file" id="attachment-input" style="display: none;">
+      </div>
+      <!-- Modify the .button-container div to include a button for attaching files -->
+      <div class="button-container">
+         <button id="attach-button" class="send-button">
+         <i class="zmdi zmdi-attachment"></i>
+         </button>
+         <button id="send-button" class="send-button">
+         <i class="zmdi zmdi-mail-send"></i>
+         </button>
+      </div>
+      <input type="text" value="{{user}}" id="current-user" hidden>
+   </div>
+</div>
+<script>
+   const user = document.getElementById('current-user').value;
+   const groupName = document.getElementById('group-name').value;
+   console.log("Group Name:", groupName);
+   var ws = new WebSocket(
+       'wss://'
+       + window.location.host
+       + '/ws/chat/'
+       + groupName
+       + '/'
+   );
+   
+   
+   ws.onopen = function () {
+       console.log("WebSocket Connection Open..................")
+       const chatLogDiv = document.querySelector('#chat-log');
+       chatLogDiv.scrollIntoView({behaviour:"smooth",block:"end"})
+   
+     
+      
+   }
+   
+   ws.onmessage = function (event) {
+       // Get the time from the DOM
+       var time = new Date().toLocaleTimeString();
+   
+       // Parse the incoming data from the server
+       const data = JSON.parse(event.data);
+   
+       // Get the chat log div element
+       const chatLogDiv = document.querySelector('#chat-log');
+   
+       // Check if the chatLogDiv exists
+       // if (chatLogDiv) {
+       //     if (data.msg) {
+       //         console.log("userssss")
+       //         // Regular message
+       //         var newMessage = document.createElement('li');
+       //         newMessage.className = 'friend';
+       //         newMessage.innerHTML = `<li class="friend"><div class="friend-msg-wrap"><img class="user-img img-circle block pull-left" src="{% static "dist/img/user_chat.png" %}" alt="user" /><div class="msg pull-left"> <span class="text-primary">${data.msg_by}</span><p>${data.msg}</p><div class="msg-per-detail text-right"><span class="msg-time txt-grey">${time}</span></div></div><div class="clearfix"></div></div></li>`;
+       //         chatLogDiv.appendChild(newMessage);
+       //     } else if (data.attachment) {
+       //         // Attachment
+       //         var newAttachment = document.createElement('li');
+       //         newAttachment.className = 'friend';
+       //         newAttachment.innerHTML = `<li class="friend"><div class="friend-msg-wrap"><img id="attachment-img" class="user-img img-circle block pull-left" src="{% static "dist/img/user_chat.png" %}" alt="user" /><div class="msg pull-left"> <span class="text-primary">${data.attachment.msg_by}</span><p><img src="${ data.attachment.data}" alt="" width="190px;"></p> <a href="{{ message.attachment }}" download>
+       //             <i class="zmdi zmdi-download"></i>
+       //         </a><div class="msg-per-detail text-right"><span class="msg-time txt-grey">${time}</span></div></div><div class="clearfix"></div></div></li>`;
+   
+       //         // Set the src attribute dynamically based on the attachment data
+               
+   
+       //         chatLogDiv.appendChild(newAttachment);
+       //     }
+   
+       //     // Scroll to the bottom of the chat log div
+       //     chatLogDiv.scrollTo(0, chatLogDiv.scrollHeight);
+       // }
+   
+       if (chatLogDiv) {
+   if (data.msg) {
+       // Regular message
+   
+       var newMessage = document.createElement('li');
+       if (data.msg_by === user) {
+           // Message sent by the logged-in user
+           newMessage.className = 'user';
+           newMessage.innerHTML = `<li class="user"><div class="user-msg-wrap"><div class="msg pull-right"> <span class="text-primary">${data.msg_by}</span><p>${data.msg}</p><div class="msg-per-detail text-right"><span class="msg-time txt-grey">${time}</span></div></div><div class="clearfix"></div></div></li>`;
+       } else {
+           // Message sent by other users
+           newMessage.className = 'friend';
+           newMessage.innerHTML = `<li class="friend"><div class="friend-msg-wrap"><img class="user-img img-circle block pull-left" src="{% static "dist/img/user_chat.png" %}" alt="user" /><div class="msg pull-left"> <span class="text-primary">${data.msg_by}</span><p>${data.msg}</p><div class="msg-per-detail text-right"><span class="msg-time txt-grey">${time}</span></div></div><div class="clearfix"></div></div></li>`;
+       }
+       
+       chatLogDiv.appendChild(newMessage);
+   } else if (data.attachment) {
+   
+   
+       // Attachment
+       var attachmentType = data.attachment.data.split(';')[0].split(':')[1];
+       var newAttachment = document.createElement('li');
+       newAttachment.className = 'friend';
+       if (data.attachment.msg_by === user) {
+           
+           // Attachment sent by the logged-in user
+           //newAttachment.innerHTML = `<li class="user"><div class="user-msg-wrap"><div class="msg pull-right"> <span class="text-primary">${data.attachment.msg_by}</span><p><img src="${data.attachment.data}" alt="" width="190px;"></p><a href="{{ message.attachment }}" download><i class="zmdi zmdi-download"></i></a><div class="msg-per-detail text-right"><span class="msg-time txt-grey">${time}</span></div></div><div class="clearfix"></div></div></li>`;
+           newAttachment.innerHTML = `
+   <div class="user-msg-wrap">
+       <div class="msg pull-right">
+           <span class="text-primary">${data.attachment.msg_by}</span>
+           ${
+               attachmentType === 'application/pdf'
+                   ? `<p><img src="{% static "dist/img/pdfnw.png" %}" alt="" width="190px;"></p>` // Show PDF icon
+                   : `<p><img src="${data.attachment.data}" alt="" width="190px;"></p>` // Show image
+           }
+           <a href="${data.attachment.data}" download>
+               <i class="zmdi zmdi-download"> ${data.attachment.filename}</i>
+           </a>
+           <div class="msg-per-detail text-right">
+               <span class="msg-time txt-grey">${time}</span>
+           </div>
+       </div>
+       <div class="clearfix"></div>
+   </div>
+   `;
+       } else {
+           // Attachment sent by other users
+           //newAttachment.innerHTML = `<li class="friend"><div class="friend-msg-wrap"><img id="attachment-img" class="user-img img-circle block pull-left" src="{% static "dist/img/user_chat.png" %}" alt="user" /><div class="msg pull-left"> <span class="text-primary">${data.attachment.msg_by}</span><p><img src="${data.attachment.data}" alt="" width="190px;"></p><a href="{{ message.attachment }}" download><i class="zmdi zmdi-download"></i></a><div class="msg-per-detail text-right"><span class="msg-time txt-grey">${time}</span></div></div><div class="clearfix"></div></div></li>`;
+           newAttachment.innerHTML = `
+    <div class="user-msg-wrap">
+    <div class="msg pull-left">
+    <span class="text-primary">${data.attachment.msg_by}</span>
+    <li class="friend">
+   
+       
+           ${
+               attachmentType === 'application/pdf'
+                   ? `<p><img src="{% static "dist/img/pdfnw.png" %}" alt="" width="190px;"></p>` // Show PDF icon
+                   : `<p><img src="${data.attachment.data}" alt="" width="190px;"></p>` // Show image
+           }
+           <a href="${data.attachment.data}" download>
+               <i class="zmdi zmdi-download"> ${data.attachment.filename}</i>
+           </a>
+           <div class="msg-per-detail text-right">
+               <span class="msg-time txt-grey">${time}</span>
+           </div>
+       </div>
+       </div>
+       <div class="clearfix"></div>
+   
+   </li>
+    </div>
+   `;
+       }
+   
+       chatLogDiv.appendChild(newAttachment);
+   }
+   
+   // Scroll to the bottom of the chat log div
+   chatLogDiv.scrollTo(0, chatLogDiv.scrollHeight);
+   }
+   
+   
+   
+   };
+   
+   
+   ws.onclose = function () {
+       console.log("WebSocket Connection closed unexpectedly..................")
+   }
+   
+   window.onload=function(){
+       const element=document.querySelector(".friend");
+       console.log("element",element)
+       if(element){
+           element.scrollIntoView()
+       }
+   }
+   
+   document.getElementById('send-button').onclick = function (event) {
+       const messageInputDom = document.getElementById('message-input');
+       const message = messageInputDom.value;
+       ws.send(JSON.stringify({
+           'msg': message
+       }));
+       messageInputDom.value = '';
+   }
+   
+   document.getElementById('message-input').addEventListener('keydown', function (event) {
+       if (event.key === 'Enter') {
+           event.preventDefault(); // Prevent the newline character from being added to the input field
+           const messageInputDom = document.getElementById('message-input');
+           const message = messageInputDom.value;
+           if (message.trim() !== '') {
+               ws.send(JSON.stringify({
+                   'msg': message
+               }));
+               messageInputDom.value = '';
+           }
+       }
+   });
+   document.getElementById('attach-button').onclick = function (event) {
+       document.getElementById('attachment-input').click();
+   };
+   
+   document.getElementById('attachment-input').addEventListener('change', function (event) {
+       const fileInput = event.target;
+       const files = fileInput.files;
+   
+       if (files.length > 0) {
+           const file = files[0];
+           const reader = new FileReader();
+   
+           reader.onload = function (e) {
+               const attachmentData = e.target.result;
+   
+               // Send the attachment data to the server
+               ws.send(JSON.stringify({
+                   'attachment': {
+                       'filename': file.name,
+                       'data': attachmentData,
+                   }
+               }));
+           };
+   
+           reader.readAsDataURL(file);
+   
+           // Clear the file input after reading the file
+           fileInput.value = '';
+       }
+   });
+   
+</script>

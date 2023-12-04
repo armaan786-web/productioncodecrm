@@ -1,0 +1,74 @@
+{% extends 'Agent/Base/base.html' %}
+{% load static %}
+{% block main-content %}
+
+<div class="container-fluid">
+
+	<!-- Title -->
+	<div class="row heading-bg">
+		<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+			<h5 class="txt-dark">Questions/Concern</h5>
+		</div>
+		<!-- Breadcrumb -->
+		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+			<ol class="breadcrumb">
+				<li><a href="{% url "agent_dashboard" %}">Dashboard</a></li>
+				{% comment %} <li><a href="#"><span>table</span></a></li> {% endcomment %}
+				<li class="active"><span>Questions/Concern</span></li>
+			</ol>
+		</div>
+		<!-- /Breadcrumb -->
+		
+	</div>
+	{% include 'dashboard/messages.html' %}
+
+	<div class="row" style="float:right;margin-bottom:10px;">
+		<div class="col-md-6">
+			<a href="{% url 'Agent_addfaq' %}">
+				<button class="btn btn-primary">Add New</button>
+			</a>
+		</div>
+	</div>
+
+	<!-- Row -->
+	{% for i in FAQs %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default card-view">
+                <div class="panel-heading">
+                    <div class="pull-left">
+                        <h6 class="panel-title txt-dark">Ask By: {{ i.user }}</h6>
+                    </div>
+                    <div class="pull-right">
+                        <h6 class="panel-title txt-dark">Last Updated On: {{ i.last_updated_on }}</h6>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="panel-wrapper">
+                    <div class="panel-body">
+                        <div class="panel-group accordion-struct accordion-style-1" id="accordion_{{ i.id }}" role="tablist" aria-multiselectable="true">
+                            <div class="panel panel-default">
+                                <div class="panel-heading activestate" role="tab" id="heading_{{ i.id }}">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion_{{ i.id }}" href="#collapse_{{ i.id }}" aria-expanded="false">
+                                        <div class="icon-ac-wrap pr-20">
+                                            <span class="plus-ac"><i class="ti-plus"></i></span>
+                                            <span class="minus-ac"><i class="ti-minus"></i></span>
+                                        </div>
+                                        <strong>Ques:</strong> {{ i.question }}
+                                    </a>
+                                </div>
+                                <div id="collapse_{{ i.id }}" class="panel-collapse collapse" role="tabpanel">
+                                    <div class="panel-body pa-15"><strong>Ans:</strong> {{ i.answer }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+
+</div>
+
+{% endblock main-content %}

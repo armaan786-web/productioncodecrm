@@ -1,0 +1,241 @@
+{% extends 'Agent/Base/base.html' %}
+{% load static %}
+{% block main-content %}
+
+
+<style>
+	.arrow-container {
+        position: absolute;
+        top: 8px;
+        right: 0;
+        width: 20px; 
+        height: 20px; 
+    }
+	.arrow-icon {
+        font-size: 20px; 
+        color: white; 
+    }
+    
+</style>
+
+<div class="container-fluid pt-25">
+	<!-- Row -->
+	<div class="row">
+		<div class="col-lg-12">
+			 <div class="panel panel-default card-view">
+				 <div class="panel-heading">
+					<div class="pull-left">
+						<h6 class="panel-title txt-dark">Featured Products</h6>
+					</div>
+					<div class="pull-right">
+						<a href="{% url "Agent_Package_list" %}">
+							<h6 class="panel-title txt-dark">View All</h6>
+						</a>
+					</div>
+					 <div class="clearfix"></div>
+				 </div>
+				 <div class="panel-wrapper collapse in">
+					 <div  class="panel-body">
+						 <div class="">
+							 <div id="owl_demo_3" class="owl-carousel owl-theme">
+								{% for i in package  %}
+								<div class="item">
+									{% if i.file %}	
+									<img src="{{ i.file.url }}" alt="Owl Image" style="height: 200px; width:300px; ">
+									{% else %}
+									<img src="{% static 'assets/images/noimage.png' %}" alt="Owl Image" style="height: 250px; width:375px; ">
+									{% endif %}
+									<div class="details" style="padding:10px;color:#21325D;font-weight:600;font-size:16px;">
+										<p>Name - {{i.title}}</p>
+										<p>Country - {{i.visa_country}}</p> <br>
+										<a href="{% url 'Agent_package_enquiry' i.id %} " >
+											<button type="submit" style="border-radius:64px;background-color:#21325D;color:white;border:1px solid #21325D;">Apply Now</button>
+										</a>
+										
+									</div>										
+								</div>
+								{% endfor %}								
+							 </div>
+						  </div>
+					 </div>
+				 </div>
+			 </div>	
+		 </div>
+	 </div>
+   
+   <div class="row">
+		<div class="col-md-4">
+			<span class="block"><span class="uppercase-font" style="color: #21325D;font-weight:600;font-size:16px;">Total Leads</span></span>
+			<div class="panel panel-default card-view pt-0 bg-info">
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body pa-0">
+						<div class="sm-data-box bg-white">
+							<div class="container-fluid">
+								<div class="row">
+									<div class="col-xs-6 text-left pl-0 pr-0 data-wrap-left">
+										<span class="txt-dark block counter"><span class="counter-anim" style="color: white;">{{lead_count}}</span></span>
+										
+									</div>
+									<div class="col-xs-6 text-left  pl-0 pr-0 pt-25 data-wrap-right">
+										<!-- <div id="sparkline_5" style="width: 100px; overflow: hidden; margin: 0px auto;"></div> -->
+										<div class="arrow-container">
+											<div class="arrow">
+												<a href="{% url "agent_leads" %}"><i class="zmdi zmdi-arrow-right arrow-icon" ></i></a>
+											</div>
+										</div>
+									</div>
+								</div>	
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<span class="block"><span class="uppercase-font" style="color: #21325D;font-weight:600;font-size:16px;">Total Enrolled Leads</span></span>
+			<div class="panel panel-default card-view pt-0" style="background-color: cadetblue;">
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body pa-0">
+						<div class="sm-data-box bg-white">
+							<div class="container-fluid">
+								<div class="row">
+									<div class="col-xs-6 text-left pl-0 pr-0 data-wrap-left">
+										<span class="txt-dark block counter"><span class="counter-anim" style="color: white;">{{leadaccept_count}}</span></span>
+										
+									</div>
+									<div class="col-xs-6 text-left  pl-0 pr-0 pt-25 data-wrap-right">
+										<!-- <div id="sparkline_5" style="width: 100px; overflow: hidden; margin: 0px auto;"></div> -->
+										<div class="arrow-container">
+											<div class="arrow">
+												<a href="{% url "agent_leads" %}"><i class="zmdi zmdi-arrow-right arrow-icon" ></i></a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>	
+		<div class="col-md-4">
+			<span class="block"><span class="uppercase-font" style="color: #21325D;font-weight:600;font-size:16px;">Relationship Manager</span></span>
+			<div class="panel panel-default card-view pt-0 bg-info">
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body pa-0">
+						<div class="sm-data-box bg-white">
+							<div class="container-fluid">
+								<div class="row">
+									<div class="col-xs-6 text-left pl-0 pr-0 data-wrap-left">
+										<span style="color: white;">Name : {{agent.assign_employee.users}}</span> <br>
+										<span style="color: white;">Phone : {{agent.assign_employee.contact_no}}</span> <br>
+										<span style="color: white;">Email : {{agent.assign_employee.users.email}}</span> <br>
+										<span style="color: white;">Address : {{agent.assign_employee.Address}}</span> <br>
+										<span style="color: white;">Designation : {{agent.assign_employee.department}}</span> <br>
+										
+									</div>
+									<div class="col-xs-6 text-left  pl-0 pr-0 pt-25 data-wrap-right">
+										<!-- <div id="sparkline_5" style="width: 100px; overflow: hidden; margin: 0px auto;"></div> -->
+										<div class="arrow-container">
+											<div class="arrow">
+												<a href="{% url "agent_leads" %}"><i class="zmdi zmdi-arrow-right arrow-icon" ></i></a>
+											</div>
+										</div>
+									</div>
+								</div>	
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+   
+	<div class="row">
+		<div class="col-md-6">
+			<div class="panel panel-default card-view panel-refresh relative" style="height:456px;">
+				<div class="refresh-container">
+					<div class="la-anim-1"></div>
+				</div>
+				<div class="panel-heading">
+					<div class="pull-left">
+						<h6 class="panel-title txt-dark">Monthly Leads</h6>
+					</div>
+					<div class="pull-right">
+						<a href="#" class="pull-left inline-block refresh mr-15">
+							<i class="zmdi zmdi-replay"></i>
+						</a>
+						
+					</div>
+					<div class="clearfix"></div>
+				</div>
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body">
+						{% comment %} <div id="e_chart_3" class="" style="height:348px;"></div> {% endcomment %}
+						<canvas id="myChart2"></canvas>
+						<div class="label-chatrs">
+							<div class="inline-block mr-15">
+								{% comment %} <span class="clabels inline-block bg-primary mr-5"></span> {% endcomment %}
+								{% comment %} <span class="clabels-text font-12 inline-block txt-dark capitalize-font">Closed Lead</span> {% endcomment %}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="panel panel-default card-view" >
+				<div class="panel-heading">
+					<div class="pull-left">
+						<h6 class="panel-title txt-dark">world map</h6>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body">
+						<div id="world_map_marker_1" style="height: 350px"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div> 
+	
+		
+	
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<script>
+	const ctx = document.getElementById('myChart2');
+  
+	new Chart(ctx, {
+	  type: 'bar',
+	  data: {
+		labels: {{ monthly_labels|safe }},
+		{% comment %} labels: ['January', 'February', 'March', 'April', 'May', 'June','July','August','September','October','November','December'], {% endcomment %}
+		datasets: [{
+		  label: '# of Enquiry',
+		  data: {{ monthly_count|safe }},
+		  backgroundColor: [
+			  '#21325d', // Background color for 'Red'
+
+			],
+		  borderWidth: 1
+		}]
+	  },
+	  options: {
+		scales: {
+		  y: {
+			beginAtZero: true
+		  }
+		}
+	  }
+	});
+  </script>
+
+
+
+
+{% endblock main-content %} 

@@ -1,0 +1,113 @@
+[2023-11-13 05:42:53 +0000] [109828] [INFO] Starting gunicorn 21.2.0
+[2023-11-13 05:42:53 +0000] [109828] [INFO] Listening at: http://127.0.0.1:8000 (109828)
+[2023-11-13 05:42:53 +0000] [109828] [INFO] Using worker: uvicorn.workers.UvicornWorker
+[2023-11-13 05:42:53 +0000] [109829] [INFO] Booting worker with pid: 109829
+[2023-11-13 05:42:53 +0000] [109830] [INFO] Booting worker with pid: 109830
+[2023-11-13 05:42:53 +0000] [109831] [INFO] Booting worker with pid: 109831
+[2023-11-13 05:42:53 +0000] [109832] [INFO] Booting worker with pid: 109832
+[2023-11-13 05:42:53 +0000] [109829] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/home/ubuntu/SkyTrailsProduction/env/lib/python3.10/site-packages/gunicorn/arbiter.py", line 609, in spawn_worker
+    worker.init_process()
+  File "/home/ubuntu/SkyTrailsProduction/env/lib/python3.10/site-packages/uvicorn/workers.py", line 66, in init_process
+    super(UvicornWorker, self).init_process()
+  File "/home/ubuntu/SkyTrailsProduction/env/lib/python3.10/site-packages/gunicorn/workers/base.py", line 134, in init_process
+    self.load_wsgi()
+  File "/home/ubuntu/SkyTrailsProduction/env/lib/python3.10/site-packages/gunicorn/workers/base.py", line 146, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/home/ubuntu/SkyTrailsProduction/env/lib/python3.10/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/home/ubuntu/SkyTrailsProduction/env/lib/python3.10/site-packages/gunicorn/app/wsgiapp.py", line 58, in load
+    return self.load_wsgiapp()
+  File "/home/ubuntu/SkyTrailsProduction/env/lib/python3.10/site-packages/gunicorn/app/wsgiapp.py", line 48, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/home/ubuntu/SkyTrailsProduction/env/lib/python3.10/site-packages/gunicorn/util.py", line 371, in import_app
+    mod = importlib.import_module(module)
+  File "/usr/lib/python3.10/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1050, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1027, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1006, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 688, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 883, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/home/ubuntu/SkyTrailsProduction/TravoltCRM/asgi.py", line 5, in <module>
+    import crm_app.routing
+  File "/home/ubuntu/SkyTrailsProduction/crm_app/routing.py", line 1, in <module>
+    from . import consumers
+  File "/home/ubuntu/SkyTrailsProduction/crm_app/consumers.py", line 5, in <module>
+    from .models import ChatGroup, ChatMessage
+  File "/home/ubuntu/SkyTrailsProduction/crm_app/models.py", line 4, in <module>
+    from django.contrib.auth.models import AbstractUser
+  File "/home/ubuntu/SkyTrailsProduction/env/lib/python3.10/site-packages/django/contrib/auth/models.py", line 3, in <module>
+    from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
+  File "/home/ubuntu/SkyTrailsProduction/env/lib/python3.10/site-packages/django/contrib/auth/base_user.py", line 57, in <module>
+    class AbstractBaseUser(models.Model):
+  File "/home/ubuntu/SkyTrailsProduction/env/lib/python3.10/site-packages/django/db/models/base.py", line 129, in __new__
+    app_config = apps.get_containing_app_config(module)
+  File "/home/ubuntu/SkyTrailsProduction/env/lib/python3.10/site-packages/django/apps/registry.py", line 260, in get_containing_app_config
+    self.check_apps_ready()
+  File "/home/ubuntu/SkyTrailsProduction/env/lib/python3.10/site-packages/django/apps/registry.py", line 137, in check_apps_ready
+    settings.INSTALLED_APPS
+  File "/home/ubuntu/SkyTrailsProduction/env/lib/python3.10/site-packages/django/conf/__init__.py", line 102, in __getattr__
+    self._setup(name)
+  File "/home/ubuntu/SkyTrailsProduction/env/lib/python3.10/site-packages/django/conf/__init__.py", line 82, in _setup
+    raise ImproperlyConfigured(
+django.core.exceptions.ImproperlyConfigured: Requested setting INSTALLED_APPS, but settings are not configured. You must either define the environment variable DJANGO_SETTINGS_MODULE or call settings.configure() before accessing settings.
+[2023-11-13 05:42:53 +0000] [109829] [INFO] Worker exiting (pid: 109829)
+[2023-11-13 05:42:53 +0000] [109830] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/home/ubuntu/SkyTrailsProduction/env/lib/python3.10/site-packages/gunicorn/arbiter.py", line 609, in spawn_worker
+    worker.init_process()
+  File "/home/ubuntu/SkyTrailsProduction/env/lib/python3.10/site-packages/uvicorn/workers.py", line 66, in init_process
+    super(UvicornWorker, self).init_process()
+  File "/home/ubuntu/SkyTrailsProduction/env/lib/python3.10/site-packages/gunicorn/workers/base.py", line 134, in init_process
+    self.load_wsgi()
+  File "/home/ubuntu/SkyTrailsProduction/env/lib/python3.10/site-packages/gunicorn/workers/base.py", line 146, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/home/ubuntu/SkyTrailsProduction/env/lib/python3.10/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/home/ubuntu/SkyTrailsProduction/env/lib/python3.10/site-packages/gunicorn/app/wsgiapp.py", line 58, in load
+    return self.load_wsgiapp()
+  File "/home/ubuntu/SkyTrailsProduction/env/lib/python3.10/site-packages/gunicorn/app/wsgiapp.py", line 48, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/home/ubuntu/SkyTrailsProduction/env/lib/python3.10/site-packages/gunicorn/util.py", line 371, in import_app
+    mod = importlib.import_module(module)
+  File "/usr/lib/python3.10/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1050, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1027, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1006, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 688, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 883, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/home/ubuntu/SkyTrailsProduction/TravoltCRM/asgi.py", line 5, in <module>
+    import crm_app.routing
+  File "/home/ubuntu/SkyTrailsProduction/crm_app/routing.py", line 1, in <module>
+    from . import consumers
+  File "/home/ubuntu/SkyTrailsProduction/crm_app/consumers.py", line 5, in <module>
+    from .models import ChatGroup, ChatMessage
+  File "/home/ubuntu/SkyTrailsProduction/crm_app/models.py", line 4, in <module>
+    from django.contrib.auth.models import AbstractUser
+  File "/home/ubuntu/SkyTrailsProduction/env/lib/python3.10/site-packages/django/contrib/auth/models.py", line 3, in <module>
+    from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
+  File "/home/ubuntu/SkyTrailsProduction/env/lib/python3.10/site-packages/django/contrib/auth/base_user.py", line 57, in <module>
+    class AbstractBaseUser(models.Model):
+  File "/home/ubuntu/SkyTrailsProduction/env/lib/python3.10/site-packages/django/db/models/base.py", line 129, in __new__
+    app_config = apps.get_containing_app_config(module)
+  File "/home/ubuntu/SkyTrailsProduction/env/lib/python3.10/site-packages/django/apps/registry.py", line 260, in get_containing_app_config
+    self.check_apps_ready()
+  File "/home/ubuntu/SkyTrailsProduction/env/lib/python3.10/site-packages/django/apps/registry.py", line 137, in check_apps_ready
+    settings.INSTALLED_APPS
+  File "/home/ubuntu/SkyTrailsProduction/env/lib/python3.10/site-packages/django/conf/__init__.py", line 102, in __getattr__
+    self._setup(name)
+  File "/home/ubuntu/SkyTrailsProduction/env/lib/python3.10/site-packages/django/conf/__init__.py", line 82, in _setup
+    raise ImproperlyConfigured(
+django.core.exceptions.ImproperlyConfigured: Requested setting INSTALLED_APPS, but settings are not configured. You must either define the environment variable DJANGO_SETTINGS_MODULE or call settings.configure() before accessing settings.
+[2023-11-13 05:42:53 +0000] [109830] [INFO] Worker exiting (pid: 109830)
+[2023-11-13 05:42:54 +0000] [109828] [ERROR] Worker (pid:109829) exited with code 3
+[2023-11-13 05:42:54 +0000] [109828] [ERROR] Worker (pid:109830) was sent SIGTERM!
+[2023-11-13 05:42:54 +0000] [109828] [ERROR] Worker (pid:109831) was sent SIGTERM!
+[2023-11-13 05:42:54 +0000] [109828] [ERROR] Worker (pid:109832) was sent SIGTERM!
+[2023-11-13 05:42:54 +0000] [109828] [ERROR] Shutting down: Master
+[2023-11-13 05:42:54 +0000] [109828] [ERROR] Reason: Worker failed to boot.

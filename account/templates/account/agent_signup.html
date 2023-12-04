@@ -1,0 +1,122 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login</title>
+	<link rel="stylesheet" href="{% static "assets/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css" %}">
+	<link rel="stylesheet" href="{% static "assets/css/style.css" %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  </head>
+  <body>
+  
+	
+
+	  
+		<div class="wrapper" style="background-image: url('{% static "assets/images/bg1.jpg" %}');">
+			<div class="inner">
+				<div class="image-holder" style="margin-top:20%;">
+					<img src="{% static "assets/images/visa.gif" %}" alt="">
+				</div>
+                
+				<form method="POST">
+					{% csrf_token %}
+					<div class="center-content">
+						<img src="{% static 'assets/images/SkytrailsLogo.svg' %}" height="100" width="250" alt="">
+						<br>
+						<p class="mt-4" style="font-size:24px;color:#21325D;font-weight:800;">Login To Your Account</p>
+					</div>
+					<br><br>
+
+                    {% if messages %}
+                            {% for message in messages %}
+                            
+							<div class="alert alert-warning alert-dismissible fade show" role="alert">
+								{{message}}
+							<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+							</div>
+                            
+                            {% endfor %}
+                    {% endif %}
+                    
+					
+					<div class="row">
+                        <div class="col-md-6">
+                            <div class="form-wrapper">
+                                Email
+                                
+                                <input class="form-control" type="email" name="email" id="email" style="border-top:none;border-right:none;border-left:none;border-bottom:1px solid;border-radius:0%;">
+                                
+                                <!-- <small class='text-danger'>{{ form.username.errors|striptags }}</small> -->
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-wrapper">
+                                Contact No
+                                <input class="form-control" type="text" name="contact_no" id="contact_no" style="border-top:none;border-right:none;border-left:none;border-bottom:1px solid;border-radius:0%;">
+                                
+                                <!-- <small class='text-danger'>{{ form.password.errors|striptags }}</small> -->
+                            </div>
+                        </div>
+                    </div>
+					
+					<div class="row">
+                        <div class="col-md-6">
+                            <div class="form-wrapper">
+                                First Name
+                                <input class="form-control" type="text" name="firstname" id="firstname" style="border-top:none;border-right:none;border-left:none;border-bottom:1px solid;border-radius:0%;">
+                                
+                                <!-- <small class='text-danger'>{{ form.password.errors|striptags }}</small> -->
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-wrapper">
+                                Last Name
+                                <input class="form-control" type="text" name="lastname" id="lastname" style="border-top:none;border-right:none;border-left:none;border-bottom:1px solid;border-radius:0%;">
+                                
+                                <!-- <small class='text-danger'>{{ form.password.errors|striptags }}</small> -->
+                            </div>
+                        </div>
+                    </div>
+		
+					<div class="row">
+                        <div class="col-md-6">
+                            <div class="form-wrapper">
+                                Type
+                                <select name="type" id="type" class="form-control" style="border-top:none;border-right:none;border-left:none;border-bottom:1px solid;border-radius:0%;font-size:15px;">
+                                    
+                                    <option value="Agent">Agent</option>
+                                    <option value="Outsourcing partner">OutSourcing Agent</option>
+        
+                                </select>
+                                
+                                <!-- <small class='text-danger'>{{ form.password.errors|striptags }}</small> -->
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-wrapper">
+                                Password
+                                <input class="form-control" type="password" name="password" id="password" style="border-top:none;border-right:none;border-left:none;border-bottom:1px solid;border-radius:0%;">
+                                
+                                <!-- <small class='text-danger'>{{ form.password.errors|striptags }}</small> -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+					
+		
+					<button type="submit" style="border-radius: 8px;">SignUp
+						<i class="zmdi zmdi-arrow-right"></i>
+					</button>
+					<br>
+					<!-- <a href="{% url "employee_login" %}" style="color:red;">For Employee Login</a> -->
+					
+					<a href="{% url "login" %}" style="float:right;color:red;">For Agent Login</a>
+				</form>
+			</div>
+		</div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  </body>
+</html>

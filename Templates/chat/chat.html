@@ -1,0 +1,197 @@
+{% extends base_template %}
+{% load static %}
+{% block main-content %}
+{% comment %} 
+<style>
+    /* Customize scrollbar for Chrome and Safari */
+    ::-webkit-scrollbar {
+      width: 1px; /* Set the scrollbar width */
+    } 
+  </style> {% endcomment %}
+
+
+<style>
+    /* Style for the chat box */
+    .chat-box-wrap {
+        width: 300px; /* Adjust the width as needed */
+        background-color: #CCCCFF;
+        border: 1px solid #CCCCFF;
+        overflow-y: auto; 
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s;
+    }
+
+    .chat-search {
+        padding: 15px;
+        background-color: #f5f5f5;
+        border-bottom: 1px solid #e6e6e6;
+    }
+
+    .form-control {
+        border: none;
+        border-radius: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-control:focus {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .chat-list-wrap {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        overflow-y: auto;
+        max-height: calc(90vh - 135px); /* Adjust the max-height as needed */
+    }
+
+    .chat-list {
+        padding: 15px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    {% comment %} .chat-list:hover {
+        background-color: #f9f9f9;
+    } {% endcomment %}
+
+    .chat-group-link {
+        text-decoration: none;
+        color: #333333;
+        display: flex;
+        align-items: center;
+    }
+
+    .chat-group-link.active {
+        background-color: #e0e0e0;
+    }
+
+    .user-img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 15px;
+    }
+
+    .user-data {
+        flex: 1;
+    }
+
+    .status {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: #d9534f;
+        margin-left: 10px;
+    }
+</style>
+
+
+<div class="container-fluid">
+
+    
+  <div class="row" >
+    <h1></h1>
+        <div class="col-md-12" >
+            <div class="panel panel-default border-panel card-view pa-0" >
+                <div class="panel-wrapper collapse in" >
+                    <div class="panel-body pa-0">
+                        <div class="chat-cmplt-wrap chat-for-widgets-1" >
+                            <div class="chat-box-wrap">
+                                <div>
+                                    <form role="search" class="chat-search" id="search-form">
+                                        <div class="input-group">
+                                            <input id="example_filter" name="example-input1-group2" class="form-control"
+                                                placeholder="Search" type="text">
+
+                                            {% if user.user_type == "2" %}
+                                                <span class="input-group-btn">
+                                                    
+                                                    <a href="{% url "chatgroup" %}"><i class='zmdi zmdi-accounts-add'
+                                                            style="font-size: 25px;"></i></a>
+                                                </span>
+                                                {% else %}
+
+                                                {% endif %}
+                                        </div>
+                                    </form>
+                                    
+
+
+                                    <div class="chatapp-nicescroll-bar">
+                                        <ul class="chat-list-wrap">
+                                            <li class="chat-list" id="user-list">
+                                                <div class="chat-body">
+                                                    
+
+                                                    {% for chat_group in groups %}
+                                                    <a href="javascript:void(0)" data-group-id="{{ chat_group.id }}" class="chat-group-link">
+                                                        <div class="chat-data">
+                                                            <img class="user-img img-circle" src="{% static "dist/img/user_chat.png" %}"
+                                                                alt="user" />
+                                                            <div class="user-data">
+                                                                <span class="name block capitalize-font">
+                                                                    {{ chat_group.group_name }}</span>
+                                                                
+                                                            </div>
+                                                            <div class="status offline"></div>
+                                                            <div class="clearfix"></div>
+                                                        </div>
+                                                    </a>
+                                                    {% endfor %}
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            <div class="chat-window">
+                                <div class="chat-messages" id="chat-messages">
+                                    <!-- Chat messages will be displayed here -->
+                                </div>
+                                {% comment %} <div class="chat-input">
+                                    <input type="text" id="message-input" placeholder="Type your message">
+                                    <button id="send-button">Send</button>
+                                </div> {% endcomment %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.chat-group-link').click(function () {
+            var groupId = $(this).data('group-id');
+
+            // Check if the clicked group is already active
+            if (!$(this).hasClass('active')) {
+                // Deactivate all groups
+                $('.chat-group-link').removeClass('active');
+
+                // Activate the clicked group
+                $(this).addClass('active');
+
+                // Load chat messages for the selected group using AJAX
+                loadGroupChat(groupId);
+            }
+        });
+    });
+
+    function loadGroupChat(groupId) {
+        // Fetch chat messages for the selected group using AJAX
+        $.ajax({
+            url: `/get_group_chat_messages/?group_id=${groupId}`,
+            success: function(data) {
+                $('#chat-messages').html(data);
+            }
+        });
+    }
+</script>
+{% endblock main-content %}

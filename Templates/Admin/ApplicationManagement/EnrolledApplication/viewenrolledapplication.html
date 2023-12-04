@@ -1,0 +1,765 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block main-content %}
+
+<div class="container-fluid">
+
+    <!-- Title -->
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h5 class="txt-dark">EnrolledApplication</h5>
+        </div>
+
+        <!-- Breadcrumb -->
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+            <ol class="breadcrumb">
+                <li><a href="{% url "travel_dashboards" %}">Dashboard</a></li>
+                <li><a href="{% url "enroll_application" %}"><span>EnrolledApplication List</span></a></li>
+                <li class="active"><span>View EnrolledApplication</span></li>
+            </ol>
+        </div>
+        <!-- /Breadcrumb -->
+
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default card-view">
+                <div class="panel-heading">
+                    <div class="pull-left">
+                        <h6 class="panel-title txt-dark">personal Information</h6>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <div class="form-wrap">
+                                    <div class="form-body">
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        
+                                                        <label class="control-label mb-10">Name</label>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <h5>{{enq.Salutation}} {{enq.FirstName}} {% if enq.MiddleName %}
+                                                            {{ enq.MiddleName }}
+                                                        {% endif %} {{enq.LastName}}</h5>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label class="control-label mb-10">Date of Brith</label>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <h5>{{enq.Dob}}</h5>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label class="control-label mb-10">Gender</label>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <h5>{{enq.Gender}}</h5>
+                                                    </div>
+                                                </div> 
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label class="control-label mb-10">Maritial Status</label>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <h5>{{enq.marital_status}}</h5>
+                                                    </div>
+                                                </div>    
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label class="control-label mb-10">Source</label>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <h5>{{enq.Source}}</h5>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        
+                                                        <label class="control-label mb-10">Reference</label>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <h5>{{enq.Reference}}</h5>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        
+                                                        <label class="control-label mb-10">Visa Type</label>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <h5>{{enq.Visa_type}}</h5>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        
+                                                        <label class="control-label mb-10">Visa Country</label>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <h5>{{enq.Visa_country}}</h5>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        
+                                                        <label class="control-label mb-10">Visa Category</label>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <h5>{{enq.Visa_category}}</h5>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        
+                                                        <label class="control-label mb-10">Visa SubCategory</label>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <h5>{{enq.Visa_subcategory}}</h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                
+                                                    {% if enq.digital_signature %}
+                                                        <!-- If a file is uploaded, display it -->
+                                                        <img src="{{ enq.digital_signature.url }}" height="200px" width="200px" alt="" srcset="">
+                                                    {% else %}
+                                                        <!-- If no file is uploaded, display a default/static image -->
+                                                        <img src="{% static 'assets/images/noimage.png' %}" height="200px" width="200px" alt="Default Image">
+                                                    {% endif %}
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <h4 class="mb-0 text-white">Mailing Address</h4>
+                                        <hr>       
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">Email</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{enq.email}}</h5>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">Country</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{enq.mailing_country}}</h5>
+                                                    </div>
+                                                </div>
+                                            
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">Town</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{enq.city}}</h5>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">Address</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{enq.address}}</h5>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">Phone Number</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{enq.contact}}</h5>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">State</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{enq.state}}</h5>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">Zipcode</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{enq.zipcode}}</h5>
+                                                    </div>
+                                                </div>
+                                                
+                                                
+                                            </div>
+                                            
+
+                                        </div>
+
+                                        <hr>
+                                        <h4 class="mb-0 text-white">Permanent Address</h4>
+                                        <hr>       
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">Country</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{enq.permanent_country}}</h5>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">City</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{enq.permanent_city}}</h5>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">Address</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{enq.permanent_address}}</h5>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">State</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{enq.permanent_state}}</h5>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">Zipcode</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{enq.permanent_zipcode}}</h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+
+                                        </div> 
+
+                                        <hr>
+                                        <h4 class="mb-0 text-white">Passport Information</h4>
+                                        <hr>       
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">Passport No</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{enq.passport_no}}</h5>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">Expiry Date</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{enq.expirty_Date}}</h5>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">City of Birth</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{enq.city_of_birth}}</h5>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                            
+
+                                            <div class="form-group col-md-6">
+                                                
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">Issue Date</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{enq.issue_date}}</h5>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">Issue Country</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{enq.issue_country}}</h5>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">Country of Birth</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{enq.country_of_birth}}</h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <hr>
+                                        <h4 class="mb-0 text-white">Nationality Information</h4>
+                                        <hr>       
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">Nationality</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{enq.nationality}}</h5>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">Is The Applicant A Citizen Of More Than One Country?</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        {% if enq.more_than_country %}
+                                                        <h5>Yes</h5>
+                                                        {% else %}
+                                                        <h5>No</h5>
+                                                        {% endif %}
+                                                        
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">Nationality</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{enq.more_than_one_country}}</h5>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">Citizenship</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{enq.citizenship}}</h5>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">Is The Applicant Living And Studying In Any Other Country?</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        {% if enq.other_country %}
+                                                        <h5>Yes</h5>
+                                                        {% else %}
+                                                        <h5>No</h5>
+                                                        {% endif %}
+                                                        
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">Citizenship</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{enq.studyin_in_other_country}}</h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+
+                                        </div> 
+
+                                        <hr>
+                                        <h4 class="mb-0 text-white">Emergency Contact</h4>
+                                        <hr>       
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">Name</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{enq.emergency_name}}</h5>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">Email</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{enq.emergency_email}}</h5>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">Phone Number</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{enq.emergency_phone}}</h5>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">Relation With Applicant</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{enq.relation_With_applicant}}</h5>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div> 
+
+                                        <hr>
+                                        <h4 class="mb-0 text-white">Educational Summary</h4>
+                                        <hr>       
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">Country Of Education</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{edu.country_of_education}}</h5>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">Grading Scheme</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{edu.grading_scheme}}</h5>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">Graduate From Most Recent College</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        {% if edu.recent_college %}
+                                                        <h5>Yes</h5>
+                                                        {% else %}
+                                                        <h5>No</h5>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">Highest Level of Education</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{edu.highest_level_education}}</h5>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">Grade Average</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{edu.grade_avg}}</h5>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div> 
+
+                                        <hr>
+                                        <h4 class="mb-0 text-white">College Attended</h4>
+                                        <hr>       
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">Level Of Education</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{edu.level_education}}</h5>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">Name Of Institution</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{edu.name_of_institution}}</h5>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">Attended Institution From</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{edu.institution_from}}</h5>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">Degree Awarded</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{edu.degree_Awarded}}</h5>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">Address</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{edu.Address}}</h5>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">Province</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{edu.Province}}</h5>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">Country Of Institution</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{edu.country_of_institution}}</h5>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">Primary Language Of Instruction</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{edu.primary_language}}</h5>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">Attended Institution To</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{edu.institution_to}}</h5>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">Degree Awarded On</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{edu.degree_Awarded_On}}</h5>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">City</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{edu.city}}</h5>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">Postal/ZipCode</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{edu.zipcode}}</h5>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div> 
+
+                                        <hr>
+                                        <h4 class="mb-0 text-white">Background Information</h4>
+                                        <hr>       
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">Have You Even Been To Australlia Before</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{back.background_information}}</h5>
+                                                    </div>
+                                                </div>
+                                                
+                                                
+                                            </div>
+                                        </div> 
+
+                                        <hr>
+                                        <h4 class="mb-0 text-white">Work Experience</h4>
+                                        <hr>       
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">Company Name</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{work.company_name}}</h5>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">From Date</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{work.from_date}}</h5>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">Address</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{work.address}}</h5>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">State</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{work.state}}</h5>
+                                                    </div>
+                                                </div>
+
+                                                
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">Designation</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{work.designation}}</h5>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">To Date</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{work.to_date}}</h5>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">City</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{work.city}}</h5>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">Describe Work Details</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{work.describe}}</h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> 
+
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock main-content %}

@@ -1,0 +1,99 @@
+{% extends 'Employee/Base/base.html' %}
+{% load static %}
+{% block main-content %}
+
+<div class="container-fluid pt-25">
+					
+    <!-- Row -->
+    <div class="row">
+        <div class="col-lg-3 col-xs-12">
+            <div class="panel panel-default card-view  pa-0">
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body  pa-0">
+                        <div class="profile-box">
+                            <div class="profile-cover-pic">
+                                <!-- <div class="fileupload btn btn-default">
+                                    <span class="btn-text">edit</span>
+                                    <input class="upload" type="file">
+                                </div> -->
+                                <div class="profile-image-overlay"></div>
+                            </div>
+                            <div class="profile-info text-center">
+                                <div class="profile-img-wrap">
+                                    {% if employee.file %}
+                                    <img class="inline-block mb-10" src="{{employee.file.url}}" alt="user"/>
+                                    {% else %}
+                                    <img class="inline-block mb-10" src="{% static 'assets/images/noimage.png' %}" alt="user"/>
+                                    {% endif %}
+                                    
+                                </div>	
+                                <h5 class="block mt-10 mb-5 weight-500 capitalize-font txt-primary">{{first_name}} {{last_name}}</h5>
+                                <h6 class="block capitalize-font pb-20">{{user_type}}</h6>
+                            </div>	
+                            <div class="social-info">
+                                <div class="row">
+                                    <div class="col-xs-4 text-center">
+                                        <span class="counts block head-font"><span class="counter-anim">{{leads.count}}</span></span>
+                                        <span class="counts-text block">Leads</span>
+                                    </div>
+                                    
+                                    <div class="col-xs-4 text-center">
+                                        <span class="counts block head-font"><span class="counter-anim">{{agent.count}}</span></span>
+                                        <span class="counts-text block">Agents</span>
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary btn-block  btn-anim mt-30" data-toggle="modal" data-target="#employeeprofile"><i class="fa fa-pencil"></i><span class="btn-text">Edit Profile</span></button>
+                                {% include "Employee/update_profile.html" %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9 col-xs-12">
+            <div class="panel panel-default card-view pa-0">
+                <div class="panel-wrapper collapse in">
+                    <div  class="panel-body pb-0">
+                        <div  class="tab-struct custom-tab-1 ml-10">
+                            <div class="row">
+                                <div class="col-md-4">Name</div>
+                                <div class="col-md-4">{{first_name}} {{last_name}}</div>
+                                <div class="col-md-4"></div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-4">Email</div>
+                                <div class="col-md-4">{{email}}</div>
+                                <div class="col-md-4"></div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-4">User Type</div>
+                                <div class="col-md-4">{{user_type}}</div>
+                                <div class="col-md-4"></div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-4">Contact No</div>
+                                <div class="col-md-4">{{contact}}</div>
+                                <div class="col-md-4"></div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-4">Department</div>
+                                <div class="col-md-4">{{department}}</div>
+                                <div class="col-md-4"></div>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+                
+        </div>
+    </div>
+
+</div>
+
+{% endblock main-content %}
